@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_jwt import JWT
 from flask_restful import Api
@@ -8,7 +10,7 @@ from security import authenticate, identity
 from resources.store import Store, StoreList
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACE_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True  # To allow flask propagating exception even if debug is set to false on app
 app.secret_key = 'corona'
